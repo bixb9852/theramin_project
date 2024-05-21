@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/addons/p5.sound.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        let osc;
+        let oscStarted = false;
+    
+        function setup() {
+            createCanvas(400, 400);
+            osc = new p5.Oscillator();
+            osc.setType('sine');
+        }
+    
+        function mousePressed() {
+            if (!oscStarted) {
+                osc.start();
+                oscStarted = true;
+            } else {
+                osc.stop();
+                oscStarted = false;
+            }
+        }
+    
+        function draw() {
+            background(220);
+            let freq = map(mouseX, 0, width, 20, 2000);
+            let volume = map(mouseY, 0, height, 1, 0);
+            osc.freq(freq);
+            osc.amp(volume);
+            ellipse(mouseX, mouseY, 50, 50);
+        }
+    </script>
+</body>
+</html>
